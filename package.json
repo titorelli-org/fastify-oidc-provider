@@ -1,0 +1,47 @@
+{
+  "name": "@titorelli-org/fastify-oidc-provider",
+  "version": "0.1.0",
+  "description": "Fastify OIDC provider for Titorelli services",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "test": "ts-node test/index.ts",
+    "test:watch": "nodemon"
+  },
+  "keywords": [
+    "fastify",
+    "OIDC",
+    "Titorelli"
+  ],
+  "author": "YChebotaev <yury@chebotaev.ru>",
+  "license": "AGPL-3.0-only",
+  "dependencies": {
+    "@fastify/middie": "^9.0.3",
+    "@titorelli-org/jwks-store": "^0.1.1",
+    "@titorelli-org/oidc-knex-adapter": "^0.1.2",
+    "@types/oidc-provider": "^9.1.0",
+    "fastify": "^5.3.3",
+    "fastify-plugin": "^5.0.1",
+    "jose": "^6.0.11",
+    "mkdirp": "^3.0.1",
+    "oidc-provider": "^9.1.2",
+    "pino": "^9.7.0",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "@jest/globals": "^30.0.0-beta.3",
+    "yaml": "^2.8.0"
+  }
+}

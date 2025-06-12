@@ -1,0 +1,6 @@
+client_name: test
+grant_types:
+  - authorization_code
+  - client_credentials
+redirect_uris:
+  - https://example.com/--nonexistent--redirect-url--

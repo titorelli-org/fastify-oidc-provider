@@ -19,6 +19,8 @@ jobs:
           node-version: 20.18.1
       - name: Npm install
         run: npm install
+      - name: Login to ghcr
+        run: "npm set '//npm.pkg.github.com/:_authToken=${NPM_GHCR_TOKEN}'"
       - name: Npm build
         run: npm run build
       - name: Npm publish

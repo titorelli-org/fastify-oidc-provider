@@ -23,8 +23,9 @@ const oidcProvider$: FastifyPluginAsync<OidcProviderPluginOptions> = async (
     logger,
   });
   const oidcRepositoryFactory = new RepositoryFactory(oidcDatabase, logger);
+  const issuer = new URL("/oidc", origin).toString();
 
-  const provider = new Provider(origin, {
+  const provider = new Provider(issuer, {
     adapter: (name) => oidcRepositoryFactory.create(name as any),
     features: {
       devInteractions: { enabled: false },
@@ -57,9 +58,7 @@ const oidcProvider$: FastifyPluginAsync<OidcProviderPluginOptions> = async (
     jwks: await jwksStore.get(),
   });
 
-  provider.proxy = true;
-
-  fastify.use(provider.callback());
+  fastify.use("/oidc", provider.callback());
 };
 
 export const oidcProvider = fastifyPlugin(oidcProvider$, {

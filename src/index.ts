@@ -14,7 +14,11 @@ const oidcProvider$: FastifyPluginAsync<OidcProviderPluginOptions> = async (
   { origin, jwksStore, logger },
 ) => {
   const { Provider } = await import("oidc-provider");
-  const idNamespace = "5ec17d33-2d73-4a1c-9bac-88a4e527f273";
+  const issuer = new URL("/oidc", origin).toString();
+  const issuerNamespace = uuid.v5(
+    issuer,
+    "5ec17d33-2d73-4a1c-9bac-88a4e527f273",
+  );
 
   await fastify.register(fastifyMiddie);
 
@@ -23,7 +27,6 @@ const oidcProvider$: FastifyPluginAsync<OidcProviderPluginOptions> = async (
     logger,
   });
   const oidcRepositoryFactory = new RepositoryFactory(oidcDatabase, logger);
-  const issuer = new URL("/oidc", origin).toString();
 
   const provider = new Provider(issuer, {
     adapter: (name) => oidcRepositoryFactory.create(name as any),
@@ -40,7 +43,7 @@ const oidcProvider$: FastifyPluginAsync<OidcProviderPluginOptions> = async (
 
           if (!client_name) throw new Error("client_name is required");
 
-          return `${client_name}-${uuid.v5(client_name, idNamespace)}`;
+          return `${client_name}-${uuid.v5(client_name, issuerNamespace)}`;
         },
       },
       registrationManagement: { enabled: true },
